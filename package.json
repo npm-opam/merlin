@@ -1,0 +1,52 @@
+{
+    "name": "merlin-actual",
+    "exportedEnvVars": {
+        "merlin_installed": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "true"
+        },
+        "merlin_version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "2.5.0"
+        },
+        "FINDLIB": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/lib"
+        },
+        "version": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "2.5.0"
+        },
+        "merlin_enable": {
+            "global": true,
+            "globalCollisionBehavior": "clobber",
+            "val": "enable"
+        },
+        "PATH": {
+            "global": true,
+            "resolveAsRelativePath": true,
+            "globalCollisionBehavior": "joinPath",
+            "val": "./_build/ocamlfind/bin"
+        }
+    },
+    "version": "2.5.0",
+    "dependencies": {
+        "@opam-alpha/yojson": "*",
+        "@opam-alpha/ocamlfind": ">= 1.5.2",
+        "dependency-env": "https://github.com/npm-ml/dependency-env.git",
+        "substs": "https://github.com/yunxing/substs.git",
+        "nopam": "https://github.com/yunxing/nopam.git",
+        "opam-installer-bin": "https://github.com/yunxing/opam-installer-bin.git"
+    },
+    "scripts": {
+        "postinstall": "eval $(dependencyEnv) && nopam && ./configure --prefix $opam_prefix && rm -rf $opam_prefix/share/ocamlmerlin && make -j 4 && (opam-installer --prefix=$opam_prefix || true)"
+    },
+    "peerDependencies": {
+        "@opam-alpha/ocaml": ">= 4.02.3"
+    }
+}
